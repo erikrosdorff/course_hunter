@@ -168,6 +168,8 @@ student_var = Student()
 print(student_var.name, student_var.grades, Student.average(student))
 #print("Average:", average(student.grades)) // not needed with classes
 '''
+#uncomment for results
+'''
 class Student:
     def __init__(self, name, grades):
         self.name = name #creates an input that is needed to call #"Rolf" #creates a name property and stores the value "Rolf" into it
@@ -192,10 +194,67 @@ student = Student("Bob", (100, 100, 93, 78, 90))
 student2 = Student("Rolf", (90, 96, 87, 99, 100))
 print("student.average_grades()", student.average_grades())
 print("student2.average_grades():", student2.average_grades())
-
+'''
+#uncomment to see results
 '''
 class Person: #Capitol letters for classes
-    def __init__(self, name, age): #initial 
+    def __init__(self, name, age): #initialize "magic method" default method 
         self.name = name
         self.age = age
+
+    
+bob = Person("Bob", 35)
+#print(bob) #prints <__main__.Person object at 0x0000025CEB640490>
+
+class Person: #Capitol letters for classes
+    def __init__(self, name, age): #initialize "magic method" default method 
+        self.name = name
+        self.age = age
+
+    def __str__(self):
+        return f"Person: {self.name} is {self.age} years old."
+
+    def __repr__(self):
+        return f"<Person('{self.name}', {self.age})>"
+    
+bob = Person("Bob", 35)
+print(bob)
+'''
+'''
+#1) The __init__ method which should take an argument <name>. It should
+#initialise self.name to be the argument, and self.items to be an empty list
+#2) The add_item method, which should append a dictionary representing an item to the stores <items> property.
+# The dictionary should have keys <name> and <price>.
+#3) The stock_price method, which should add up each item price inside <self.items> to come up with a total, and return that.
+
+class Store:
+    def __init__(self, name):
+        self.name = name
+        self.items = []
+        # You'll need 'name' as an arguement to this method
+        # Then initialise 'self.name' to be the argument, and self.items to be an empty list.
+    
+    def add_items(self, name, price):
+        self.items.append({'name': name, 'price' : price})
+        #Create a dictionary with keys name and price and append that to self.items
+    
+    def stock_price(self):
+        prices = []
+        for item in self.items:
+            print('item: ', item)
+            price = item['price']
+            print('price: ', price)
+            prices.append(item['price'])
+
+        return sum(prices)
+        #Add together all item prices in self.items and return the total.
+
+magazin = Store('name')
+magazin.add_items("shoes", 5)
+magazin.add_items("shoes_d", 6)
+magazin.add_items("shoes_c", 7)
+magazin.add_items("shoes_b", 9)
+magazin.add_items("shoes_a", 10)
+print("magazin: ", magazin)
+print("magazin.stock_price()", magazin.stock_price())
 '''
