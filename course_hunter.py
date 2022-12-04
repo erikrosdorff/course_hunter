@@ -149,3 +149,53 @@ both(9, 0, 8, name="My name")
 both(test="itworked")
 '''
 #uncomment to see code
+'''
+student = {"name": "Rolf", "grades": (89, 99, 95, 78, 90)}
+
+def average(sequence):
+    return sum(sequence) / len(sequence)
+
+
+class Student:
+    def __init__(self): #method when a function is in a class it is called a method
+        self.name = "Rolf"
+        self.grades = (89, 99, 95, 78, 90)
+    
+    def average(self):
+        return sum(self.grades) / len(self.grades)
+
+student_var = Student()
+print(student_var.name, student_var.grades, Student.average(student))
+#print("Average:", average(student.grades)) // not needed with classes
+'''
+class Student:
+    def __init__(self, name, grades):
+        self.name = name #creates an input that is needed to call #"Rolf" #creates a name property and stores the value "Rolf" into it
+        self.grades = grades#(90, 90, 93, 78, 90)
+    
+    def average_grades(self): #must take a parameter which will be the object (self) created intitially
+        return sum(self.grades) / len(self.grades)
+
+#//
+# #print("Student(): ", Student()) #prints Student():  <__main__.Student object at 0x0000015FF9D30490>
+# student = Student() #calls student class and as it is blank it will call the __init__ method automatically
+# name_paramter = Student("Bob", (78, 90 , 80, 95, 99))
+# print("student.name: ", student.name) #student.name:  Rolf
+# print("student = Student() print(Student()): ", Student()) #student = Student() print(Student()):  <__main__.Student object at 0x0000015FF9D301F0>
+# print("student.grades: ", student.grades)
+# print("Student.average(average):", Student.average(student))
+# #print("student.average(): ", student.average(), "Should be the same as above")
+# print("name_paramter.name:", name_paramter.name)
+#//
+
+student = Student("Bob", (100, 100, 93, 78, 90))
+student2 = Student("Rolf", (90, 96, 87, 99, 100))
+print("student.average_grades()", student.average_grades())
+print("student2.average_grades():", student2.average_grades())
+
+'''
+class Person: #Capitol letters for classes
+    def __init__(self, name, age): #initial 
+        self.name = name
+        self.age = age
+'''
