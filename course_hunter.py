@@ -258,3 +258,129 @@ magazin.add_items("shoes_a", 10)
 print("magazin: ", magazin)
 print("magazin.stock_price()", magazin.stock_price())
 '''
+'''
+class Countries:
+    def __init__(self, name, weather, economy, people):
+        self.name = name
+        self.weather = weather
+        self.economy = economy
+        self.people = people
+    def __str__(self):
+        return f'{self.name} has {self.weather} and a {self.economy} with {self.people} as its population.'
+
+country = Countries("name", "weather", "economy", "people")
+print(country)
+country = Countries("Indonesia", "good", "meh", str(200_000_000))
+print(country)
+'''
+'''
+class ClassTest:
+    def instance_method(self):
+        print(f"Called instance_method of {self}")
+    
+    @classmethod
+    def class_method(cls):
+        print(f'Called class_method of {cls}')
+    
+    @staticmethod
+    def static_method():
+        print("Called static_method")
+
+test = ClassTest()
+test.instance_method() #prints Called instance_method of <__main__.ClassTest object at 0x000001D990F40490>
+ClassTest.instance_method(test) #prints Called instance_method of <__main__.ClassTest object at 0x000001D990F40490>
+ClassTest.class_method()
+ClassTest.static_method()
+
+class Book:
+    TYPES = ("hardcover", "paperback")
+
+    def __init__(self, name, book_type, weight):
+        self.name = name
+        self.book_type = book_type
+        self.weight = weight
+    
+    def __repr__(self):
+        return f"<Book {self.name}, {self.book_type}, weighing {self.weight}g>"
+
+    @classmethod
+    def hardcover(cls, name, page_weight):
+        return Book(name, Book.TYPES[0], page_weight + 100)
+    
+    @classmethod
+    def paperback(cls, name, page_weight):
+        return Book(name, Book.TYPES[1], page_weight)
+    
+
+book = Book("Harry Potter", "comic book", 1500)
+
+book3 = Book.hardcover("Idiot", 1200)
+book2 = Book.paperback("Python101", 90)
+print("book.name", book.name)
+print("book = Book('Harry Potter', 'comic book', 1500) " , book) #Ne nada book.name
+print("book2 = Book.paperpack('Python101', 90) " , book2)
+print("book3 = Book.hardcover('Idiot', 1200)" , book3)
+
+'''
+
+#1) The @franchise method, which takes in a #store as an argument.
+#   It should return a new #Store object, with a name equal to the argument + " - franchise"
+#2) The #store_details method which also takes in a store as argument. 
+#   It should return a string representing the argument
+
+# store = Store("Test")
+# store2 = Store("Amazon")
+# store2.add_item("Keyboard", 160)
+
+# Store.franchise(store) #returns a Store with name "Test - franchise"
+# Store.franchise(store2) #returns a Store with name "Amazon - franchise"
+
+#When completeing the #store_details method you may need to convert the
+#   output of the #store.stock_price to an integer. 
+# You can do this like so: #int(store.stock_price)
+
+class Store:
+    def __init__(self, name):
+        self.name = name
+        self.items = []
+    
+    def add_item(self, name, price):
+        self.items.append({
+            'name': name,
+            'price': price
+        })
+    
+    def stock_price(self):
+        total = 0
+        for item in self.items:
+            total += item['price']
+        return total
+
+    @staticmethod
+    def clone_store(_, store):
+        return store
+
+    @classmethod
+    def franchise(cls, store):
+        return Store(store.name + " - franchise")
+    # return another store, with the same name as the argument's 
+    #   name plus " - franchise"
+    
+    @staticmethod
+    def store_details(store):
+        return Store("NAME: " + store.name, "total stock price: " + store.items)
+        #retuns a string representing the argument
+        #it should be in the format NAME, total stock price: TOTAL
+
+
+store = Store("Test")
+
+store2 = Store("Amazon")
+store2.add_item("Keyboard", 160)
+
+Store.franchise(store) #returns a Store with name "Test - franchise"
+Store.franchise(store2) #returns a Store with name "Amazon - franchise"
+
+print(store) #<__main__.Store object at 0x00000234AFF5BE50>
+#<__main__.Store object at 0x00000234AFF5BDF0>
+print(store2)
