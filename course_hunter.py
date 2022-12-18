@@ -338,7 +338,7 @@ print("book3 = Book.hardcover('Idiot', 1200)" , book3)
 #When completeing the #store_details method you may need to convert the
 #   output of the #store.stock_price to an integer. 
 # You can do this like so: #int(store.stock_price)
-
+'''
 class Store:
     def __init__(self, name):
         self.name = name
@@ -373,7 +373,10 @@ class Store:
         #it should be in the format NAME, total stock price: TOTAL
 
 
-store = Store("Test")
+amazon = Store("Test")
+
+amazon.franchise()
+Store.clone_store()
 
 store2 = Store("Amazon")
 store2.add_item("Keyboard", 160)
@@ -384,3 +387,218 @@ Store.franchise(store2) #returns a Store with name "Amazon - franchise"
 print(store) #<__main__.Store object at 0x00000234AFF5BE50>
 #<__main__.Store object at 0x00000234AFF5BDF0>
 print(store2)
+'''
+'''
+#inheritance
+class Device:
+    def __init__(self, name, connected_by):
+        self.name = name
+        self.connected_by = connected_by
+        self.connected = True #something is already connected
+    
+    def __str__(self):
+        return f"Device {self.name!r} ({self.connected_by})" #the !r calls the repr method of self.name
+
+    def disconnect(self):
+        self.connected = False
+        print("Disconnected")
+
+# printer = Device("Printer", "USB")
+# print(printer)
+# printer.disconnect()
+
+class Printer(Device): #inherits from device
+    def __init__(self, name, connected_by, capacity):
+        super().__init__(name, connected_by) #calls the init by the parent class in Printer(Device)
+        self.capacity = capacity
+        self.remaining_pages = capacity #capacity is maximuim amount of pages
+
+    def __str__(self):
+        return f"{super().__str__()} ({self.remaining_pages} pages remaining)"
+
+    def printing(self, pages):
+        if not self.connected:
+            print("Your printer is not connected")
+        print(f"Printing {pages} pages.")
+        self.remaining_pages -= pages
+
+# printer = Printer("Printer", "USB", 500)
+# printer.printing(20)
+# print(printer)
+# printer.disconnect()
+
+# class BookShelf:
+#     def __init__(self, quantity): need to allow the constructor to take in a number of books
+#         self.quantity = quantity
+
+#     def __str__(self):
+#         return f"Bookshelf with {self.quantity} books"
+# shelf = BookShelf(300)
+
+# class Book(BookShelf):
+#     def __init__(self, name, quantity):
+#         super().__init__(quantity)
+#         self.name = name
+
+# class BookShelf:
+#     def __init__(self, *books):
+#         self.books = books
+
+#     def __str__(self):
+#         return f"Bookshelf with {len(self.books)} books."
+
+
+# class Book:
+#     def __init__(self, name):
+#         self.name = name
+
+#     def __str__ (self):
+#         return f"Book {self.name}"
+
+# book = Book("Harry Potter")
+# book2 = Book("Python 101")
+# shelf =BookShelf(book, book2)
+
+# print(shelf)
+
+# from typing import List #
+
+# def list_avg(sequence: list) -> float: #tells python that it should be list returned as a float
+#     return sum(sequence) / len(sequence)
+
+# list_avg(123)
+
+from typing import List 
+
+class Book:
+    pass
+
+class BookShelf:
+    def __init__(self, books: List[Book]):
+        self.books = books
+    
+    def __str__(self) -> str: #tells you that you can only pass in this object
+        return f"BookShelf with {len(self.books)} books."
+
+'''
+'''
+import mymodule # Why is it not importing??
+import sys
+print(sys.path)
+
+
+from mymodule import divide
+
+def divide(divident, divisor):
+    return divident / divisor
+
+print("mymodule.py: ", __name__)
+'''
+'''
+# def divide(divident, divisor):
+#     if divisor == 0:
+#         print("Divisor cannot be 0")
+
+
+#     return divident / divisor
+
+# grades = [78, 99, 85, 100]
+
+# print("Welcome to the average grade program.")
+# average = divide(sum(grades), len(grades))
+
+# print(f"The average grade is {average}.")
+
+# def divide(divident, divisor):
+#     if divisor == 0:
+#         print("Divisor cannot be 0")
+#         return
+
+#     return divident / divisor
+
+# def divide(divident, divisor):
+#     if divisor == 0:
+#         raise ZeroDivisionError("Divisor cannot be 0.")
+#         #creating an exception object
+
+#     return divident / divisor
+
+# grades = []
+
+# print("Welcome to the average grade program.")
+# try:
+#     average = divide(sum(grades), len(grades))
+#     print(f"The average grade is {average}.")
+# except ZeroDivisionError as e:
+#     print("There are no grades yet in your list") 
+# #tries to use the division error.
+# else:
+#    print(f"The average grade is {average}.")
+# finally:
+#   print("This is finnally")
+'''
+'''
+#create custom error
+class TooManyPagesReadError(ValueError):
+    pass
+
+class Book:
+    def __init__(self, name: str, page_count: int):
+        self.name = name
+        self.page_count = page_count
+        self.pages_read = 0
+
+    def __repr__(self):
+        return (
+            f"<Book {self.name}, read {self.pages_read} pages out of {self.page_count}>"
+        )
+
+    def read(self, pages: int):
+        if self.pages_read + pages > self.page_count:
+            raise TooManyPagesReadError(
+                f"You tried to read {self.pages_read + pages} pages, but this book only has {self.page_count} pages"
+            )
+        self.pages_read += pages
+        print(f"You have now read {self.pages_read} pages out of {self.page_count}")
+
+
+python101 = Book("Python 101", 50)
+try:
+    python101.read(35)
+    python101.read(55)
+except TooManyPagesReadError as e:
+    print(e)
+'''
+'''
+# def divide(dividend, divisor):
+#     if divisor == 0:
+#         raise ZeroDivisionError("Divisor cannot be 0.")
+ 
+#     return dividend / divisor
+
+# def multiply(*values):
+#     return values * values
+
+# def calculate(*values, operator):
+#     return operator(*values)
+
+# result = calculate(20, 4, operator=divide) #calls the values and creates the operator
+
+def search(sequence, expected, finder):
+    for elem in sequence:
+        if finder(elem) == expected:
+            return elem
+    raise RuntimeError(f"Could not find an element with {expected}.")
+
+friends = [
+    {"name": "Rolf Smith", "age" : 24},
+    {"name": "Adam Wool", "age" : 54},
+    {"name": "Anne Pun", "age" : 31}
+]
+
+def get_friend_name(friend):
+    return friend["name"]
+
+print(search(friends, "Rolf Smith", get_friend_name))
+print(search(friends, "Bob Smith", get_friend_name)) #returns erros
+'''
