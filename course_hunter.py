@@ -602,3 +602,23 @@ def get_friend_name(friend):
 print(search(friends, "Rolf Smith", get_friend_name))
 print(search(friends, "Bob Smith", get_friend_name)) #returns erros
 '''
+from flask import Flask
+
+app = Flask(__name__)
+
+stores = [
+    {
+        "name": "My Store",
+        "items" : [
+            {
+                "name": "Chair",
+                "price": 15.99
+            }
+        ]
+    }
+]
+
+@app.get("/store")
+
+def get_stores():
+    return {"stores" : stores}
