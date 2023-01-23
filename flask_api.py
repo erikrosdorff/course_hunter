@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask 
 
 flask_api = Flask(__name__)
 
@@ -15,6 +15,7 @@ stores = [
 ]
 
 @flask_api.get("/store")
+
 
 def get_stores():
     return {"stores" : stores}
