@@ -1,5 +1,9 @@
+import os
+import secrets
+
 from flask import Flask
 from flask_smorest import Api
+from flask_jwt_extended import JWTManager
 
 from db import db
 
@@ -24,6 +28,9 @@ def create_app(db_url=None):
     app.config["PROPAGATE_EXCEPTIONS"] = True
     db.init_app(app)
     api = Api(app)
+
+    app.config["JWT_SECRET_KEY"] = "31329424013196456479488273901868198862" #secrets.SystemRandom().getrandbits(128)#"jose" not safe pass in bits
+    jwt = JWTManager(app)
 
     with app.app_context():
         db.create_all()
